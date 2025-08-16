@@ -1,0 +1,81 @@
+/voters:
+  get:
+    summary: Get all voters
+    description: Returns a list of all voters.
+    responses:
+      '200':
+        description: Successful operation
+        content:
+          application/json:
+            example:
+              - id: 1
+                name: Shaan Singh
+                age: 25
+              - id: 2
+                name: Aditi Sharma
+                age: 30
+
+  post:
+    summary: Create a new voter
+    description: Add a new voter to the system.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voter'
+    responses:
+      '201':
+        description: Voter created
+      '400':
+        description: Bad Request
+
+/voters/{id}:
+  get:
+    summary: Get voter by ID
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+        description: Voter ID
+    responses:
+      '200':
+        description: Successful operation
+      '404':
+        description: Voter not found
+
+  put:
+    summary: Update voter
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voter'
+    responses:
+      '200':
+        description: Voter updated
+      '400':
+        description: Bad Request
+
+  delete:
+    summary: Delete voter
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Voter deleted
+      '404':
+        description: Voter not found
